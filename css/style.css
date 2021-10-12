@@ -1,0 +1,69 @@
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Slabo+27px');
+
+body,
+pre {
+  font-family: 'Helvetica Neue', '游ゴシック Medium', '游ゴシック体', Helvetica, sans-serif;
+  margin-bottom: 0;
+  font-size: 100%;
+}
+header {
+  text-align: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 300px;
+  height: 100vh;
+  background:linear-gradient(45deg, #b8edf5 0%,#17a2b8 83%);
+}
+header h1 {
+  font-size:120%;
+  min-width:250px;
+  margin-top: 30px;
+  color: white;
+}
+header h1 span {
+  display: block;
+}
+
+main {
+  margin-left: 300px;
+  padding: 30px;
+}
+main h2 {
+  
+  color: #32ff92
+}
+main h2 img {
+  height: 1em;
+}
+form{
+  width: flex;
+  margin-bottom:20px;
+  margin-top: 20px;
+}
+pre {
+  
+  background-color: #b7e2e9;
+  box-shadow: 1px 1px 5px #eee;
+  min-width: 250px;
+  margin-bottom: 0rem;
+}
+p{
+  margin: 0rem;
+}
+hr {
+  border-color: #7CA4D7;
+}
+.content {
+  margin-top: 30px;
+}
+time {
+  color: #999;
+  font-size: 80%;
+}
+.mt-font{
+  margin-top: 1.5rem;
+  
+}
+
