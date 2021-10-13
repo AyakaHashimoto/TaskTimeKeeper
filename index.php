@@ -19,7 +19,7 @@
   
     <main>
         <h2 class="text-center text-info my-4">TASK TIME KEEPER</h2>
-        <p class="lead text-muted">内容や作成者など, 以下のコレクションに関する簡単な説明文を書きましょう。なるべく短く, わかりやすい文にしましょう。しかし短すぎると, 友達は見てくれないかもしれません。</p>
+        <p class="lead text-muted">タスク名と詳細を登録しましょう。登録情報を修正するには、タスク名をクリックしてください。</p>
         
 
         
@@ -38,7 +38,7 @@
                 </div>
             </div>
         </form>
-
+        <br>
         <?php
         require('dbconnect.php');
         $tasks =$db->prepare('SELECT * FROM task ORDER BY id DESC');
@@ -57,6 +57,12 @@
                 </div>  
                 <div class="col">
                     <time><?php print(' - '.$time_finished); ?></time>
+                </div> 
+                <div class="col">
+                    <time><?php print('目標時間 '.$task['target_time']); ?></time>
+                </div>  
+                <div class="col">
+                    <time><?php print('かかった時間 '.$task['duration']); ?></time>
                 </div>  
             </div>
             <hr>
