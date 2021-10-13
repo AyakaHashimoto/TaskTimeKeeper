@@ -24,12 +24,17 @@
         <p class="lead text-muted">タスクの編集</p>
         
         <?php
-        $tasks = $db->prepare('SELECT * FROM task WHERE id=?');
-        $tasks->execute(array(17));
-        $task =$tasks->fetch();
+        if(isset($_REQUEST)&& is_numeric($_REQUEST['id'])){
+            $id =$_REQUEST['id'];
+
+            $tasks = $db->prepare('SELECT * FROM task WHERE id=?');
+            $tasks->execute(array($id));
+            $task =$tasks->fetch();
+        }   
         ?>
         
         <form id="form" action="update_do.php" method="post">
+            <input type="hidden" name="id" value="<?php print($id); ?>">
             <textarea name="task" cols="50" rows ="10"><?php print($task['task_name']); ?></textarea><br>
             <button type="submit">登録</button>
         </form>
