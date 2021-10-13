@@ -23,29 +23,47 @@
         <p class="lead text-muted">タスクの内容を変更しました。</p>
         
         <?php
-    require('dbconnect.php');
+            require('dbconnect.php');
+            
+            if(isset($_REQUEST)&& is_numeric($_REQUEST['id'])){
+                $id =$_REQUEST['id'];
 
-    $statement = $db->prepare('UPDATE task SET task_name=? WHERE id=?');
-    $statement->execute(array($_POST['task'], $_POST['id']));
+            $statement = $db->prepare('UPDATE task SET task_name=?, target_time=?, created_at=?, finished_at=?, duration=? WHERE id=?');
+            $statement->execute(array($_POST['task'], $_POST['target_time'], $_POST['created_at'], $_POST['finished_at'], $_POST['duration'], $id));
+            } 
 
-    ?>
+            $tasks = $db->prepare('SELECT * FROM task WHERE id=?');
+            $tasks->execute(array($id));
+            $task =$tasks->fetch();
 
+            $time_finished = date('H:i:s',strtotime($task['finished_at']));
+        ?>   
 
         <div class="container my-4">
-            <div class="row align-items-start">
-                <div class="col mt-4">
-                    <?php print($_POST['task']); ?>
+            <div class="row">
+                <div class="col mt-4 ">
+                <?php print($task['task_name']); ?>
                 </div>
+
                 <div class="col mt-4">
-                    <?php print("目標 : ".$_POST['target_time']." 分"); ?>
-                </div>
+                <?php print($task['created_at']); ?>
+                </div>  
+
                 <div class="col mt-4">
-                    <?php print("開始時刻 : ".date('H:i:s')."-"); ?>
-                </div>
+                <?php print(' - '.$time_finished); ?>
+                </div> 
+
+                <div class="col mt-4">
+                <?php print('目標時間: '.$task['target_time'].' 分'); ?>
+                </div>  
+
+                <div class="col mt-4">
+                <?php print('かかった時間: '.$task['duration'].' 分'); ?>
+                </div>  
             </div>
         </div>
         
-
+        <p><a href="index.php" class="btn btn-outline-info">戻る</a></p>
     </main>
 </body>
 </html>
