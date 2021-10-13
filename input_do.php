@@ -57,11 +57,9 @@
         $statement->bindParam(2,$_POST['target_time'],PDO::PARAM_STR);
         $statement->execute();
     
-    $records = $db->query('SELECT * FROM task');
-    while($record =$records->fetch()){
-        print($record['task_name'])."\n";
-    }
-    //これ↑何のためにあるんだっけ
+    //$records = $db->query('SELECT * FROM task');
+    //while($record =$records->fetch()){
+    //    print($record['task_name'])."\n";}
     ?>
 
 
