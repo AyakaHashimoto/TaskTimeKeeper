@@ -27,7 +27,7 @@
                     <?php print($_POST['task']); ?>
                 </div>
                 <div class="col mt-4">
-                    <?php print("目標 : ".$_POST['target_time']." 分"); ?>
+                    <?php print("完了目標時間 : ".$_POST['target_time']." 分"); ?>
                 </div>
                 <div class="col mt-4">
                     <?php print("開始時刻 : ".date('H:i:s')."-"); ?>
@@ -52,14 +52,10 @@
     <?php
         require('dbconnect.php');
         $statement =$db->prepare('INSERT INTO task SET task_name=?, target_time=?, created_at=NOW()');
-        //$statement->execute(array($_POST['task']));
         $statement->bindParam(1,$_POST['task'],PDO::PARAM_STR);
         $statement->bindParam(2,$_POST['target_time'],PDO::PARAM_STR);
         $statement->execute();
-    
-    //$records = $db->query('SELECT * FROM task');
-    //while($record =$records->fetch()){
-    //    print($record['task_name'])."\n";}
+
     ?>
 
 
