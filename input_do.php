@@ -50,17 +50,12 @@
 
 
     <?php
-    try{
         require('dbconnect.php');
         $statement =$db->prepare('INSERT INTO task SET task_name=?, target_time=?, created_at=NOW()');
         //$statement->execute(array($_POST['task']));
         $statement->bindParam(1,$_POST['task'],PDO::PARAM_STR);
         $statement->bindParam(2,$_POST['target_time'],PDO::PARAM_STR);
         $statement->execute();
-  
-    }catch(PDOException $e){
-        echo 'DB connection error: '.$e->getMessage();
-    }
     
     $records = $db->query('SELECT * FROM task');
     while($record =$records->fetch()){
