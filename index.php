@@ -41,12 +41,14 @@
         <br>
         <?php
         require('dbconnect.php');
+        
+
         $tasks =$db->prepare('SELECT * FROM task ORDER BY id DESC');
         $tasks->execute(array());
         ?>
         <article>
             <?php while($task = $tasks->fetch()):
-                $time_finished = date('H:i:s',$task['finished_at']);
+                $time_finished = date('H:i:s',strtotime($task['finished_at']));
             ?>   
             <div class="row">
                 <div class="col">               
