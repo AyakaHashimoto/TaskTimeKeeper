@@ -30,7 +30,7 @@
                 </div>
 
                 <div class="col">
-                <input type="text" id ="target_time" name="target_time" class="form-control" placeholder="目標時間を入力">
+                <input type="text" id ="target_time" name="target_time" class="form-control" placeholder="目標完了時間（分）を入力">
                 </div>
 
                 <div class="col">
@@ -38,25 +38,19 @@
                 </div>
             </div>
         </form>
+
         <?php
-        try{
         require('dbconnect.php');
-        $tasks =$db->prepare('SELECT * FROM task ORDER BY id');
+        $tasks =$db->prepare('SELECT * FROM task ORDER BY id DESC');
         $tasks->execute(array());
-  
-        }catch(PDOException $e){
-            echo 'DB connection error: '.$e->getMessage();
-        }
-        
         ?>
         <article>
             <?php while($task = $tasks->fetch()):
                 $time_finished = date('H:i:s',$task['finished_at']);
-            ?>
+            ?>   
             <div class="row">
-                <div class="col">
-                    <p><a href="<update.php?id=<?php print($task['id']); ?>"> 
-                    <?php print(mb_substr($task['task'],0,50)); ?></a></p>
+                <div class="col">               
+                    <p><a href="update.php?id=<?php print($task['id']); ?>"><?php print(mb_substr($task['task_name'],0,50)) ?></a></p>
                 </div>
                 <div class="col">
                     <time><?php print($task['created_at']); ?></time>
