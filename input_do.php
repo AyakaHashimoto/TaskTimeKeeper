@@ -35,33 +35,34 @@
         $task =$tasks->fetch();
 
         $created_at=date('H:i:s',strtotime($task['created_at']));
-        ?>
 
-        <div class="container my-4">
-            
+        ?>
+        <br>
+        
+        <form id="stop" action="stop.php" method="post">
+        <input type="hidden" name="id" value="<?php print($id); ?>">
+        
             <div class="row align-items-start">
-                <div class="col mt-4">
+                <div class="col">
                 <?php print($task['task_name']); ?>
                 </div>
 
-                <div class="col mt-4">
+                <div class="col">
                 <?php print("完了目標時間 : ".$task['target_time']." 分"); ?>
                 </div>
 
-                <div class="col mt-4">
+                <div class="col">
                 <?php print("開始時刻 : ".$created_at); ?>
                 </div>
 
                 <div class="col">
-                <form id="stop" action="stop.php" method="post">
-                <input type="hidden" name="id" value="<?php print($id); ?>">
-                <button type="button" class="btn btn-warning">stop</button></label>
-                </form>
+                <button class="btn btn-warning" type="submit">stop</button></label> 
                 </div>
                
             </div>
-            
-        </div> 
+        
+        </form>  
+        
 
     </main>
 </body>
