@@ -40,41 +40,40 @@
         var_dump($datetimeNow);//object(DateTime)#2 (3) { ["date"]=> string(26) "2021-10-17 21:19:38.266596" ["timezone_type"]=> int(3) ["timezone"]=> string(10) "Asia/Tokyo" } 
         var_dump($stopTime);//string(19) "2021-10-17 21:19:38"
 
+        require('dbconnect.php');
         $statement = $db->prepare('INSERT INTO task SET duration=?,WHERE id=?');
         $statement->execute(array($duration, $id));
 
         $statement = $db->prepare('UPDATE task SET finished_at=?,WHERE id=?');
         $statement->execute(array($stopTime, $id));
-
-        
         
         ?>
-        
+
+
         <div class="container my-4">
-            <div class="row align-items-start">
-                <div class="col mt-4">
+            <div class="row">
+                <div class="col mt-4 ">
                 <?php print($task['task_name']); ?>
                 </div>
 
                 <div class="col mt-4">
-                <?php print("目標時間 : ".$task['target_time']." 分"); ?>
-                </div>
+                <?php print($task['created_at']); ?>
+                </div>  
 
                 <div class="col mt-4">
-                <?php print("開始時刻 : ".$task('created_at')."-"); ?>
-                </div>
+                <?php print(' - '.$task['finished_at']); ?>
+                </div> 
 
                 <div class="col mt-4">
-                <?php print("終了時刻 : ".$task('finished_at')); ?>
-                </div>
+                <?php print('目標時間: '.$task['target_time'].' 分'); ?>
+                </div>  
 
                 <div class="col mt-4">
-                <?php print("かかった時間 : ".$task('finished_at')); ?>
-                </div>
-
+                <?php print('かかった時間: '.$task['duration'].' 分'); ?>
+                </div>  
             </div>
         </div>
-        
+ 
         <br>
 
         <p><a href="index.php" class="btn btn-outline-info">戻る</a></p>
