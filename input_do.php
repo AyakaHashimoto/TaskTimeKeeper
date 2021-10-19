@@ -39,7 +39,7 @@
         ?>
         <br>
         
-        <form id="stop" action="stop.php" method="post">
+        <form id="stop" action="input_comp.php" method="post">
         <input type="hidden" name="id" value="<?php print($id); ?>">
         
             <div class="row align-items-start">
