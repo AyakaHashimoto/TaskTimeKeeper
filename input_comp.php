@@ -43,29 +43,10 @@
         $dur ='100';
         $stopT =new DateTime();
 
-        require('dbconnect.php');
-        $statement = $db->prepare('UPDATE task SET task_name=?, target_time=?,  WHERE id=?');
-        $statement->execute(array($dur, $id));
-
-        // $statement->bindParam(1,$dur,PDO::PARAM_STR);
-        // $statement->bindParam(2,$stopT,PDO::PARAM_STR);
-        // $statement->execute();
-
-        // $statement = $db->prepare('INSERT INTO task SET duration=? WHERE id=?');
-        // $statement->execute(array($duration, $id));
-
-        // $statement = $db->prepare('UPDATE task SET finished_at=? WHERE id=?');
-        // $statement->execute(array($stopTime, $id));
+        $statement = $db->prepare('UPDATE task SET duration=?, finished_at=? WHERE id=?');
+        $statement->execute(array($duration, $stopTime, $id));
         
         ?>
-    <!-- <?php
-        // try{
-        //     $stmt = $db->prepare('INSERT INTO task SET duration=? WHERE id=?');
-        //     $stmt->execute(array($duration, $id));
-        // }catch(PDOException $e){
-        //     echo 'DB error: '.$e->getMessage();
-        //   }
-    ?> -->
 
         <div class="container my-4">
             <div class="row">
