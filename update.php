@@ -64,7 +64,15 @@
                 <input type="text" id ="duration" name="duration" class="form-control" value="<?php print($task['duration']); ?>">
                 </div>
             </div>
-            <button type="submit"  class="btn btn-outline-info">登録</button>
+            <div class="row mb-4">
+                <div class="col">
+                <button type="submit"  class="btn btn-outline-info">登録</button>
+                </div>
+
+                <div class="col">
+                <a href="delete.php?id=<?php print($task['id']); ?>"  role="button" class="btn btn-outline-warning">削除</a>
+                </div>  
+            </div>
         </form>
 
 
