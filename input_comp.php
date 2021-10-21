@@ -35,7 +35,7 @@
 
         $startTime = DateTime::createFromFormat('Y-m-d H:i:s', $task['created_at'])->format('Y-m-d H:i:s');
         $duration = (strtotime($stopTime) - strtotime($startTime))/60;
-        var_dump($id);
+        // var_dump($id);
         // var_dump($duration); //float(2.05) 
         // var_dump($datetimeNow);//object(DateTime)#2 (3) { ["date"]=> string(26) "2021-10-17 21:19:38.266596" ["timezone_type"]=> int(3) ["timezone"]=> string(10) "Asia/Tokyo" } 
         // var_dump($stopTime);//string(19) "2021-10-17 21:19:38"
