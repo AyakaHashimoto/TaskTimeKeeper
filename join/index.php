@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 if(!empty($_POST)){
 	if($_POST['name']===''){
 		$error['name']='blank';
@@ -15,12 +17,14 @@ if(!empty($_POST)){
 		$error['password']='blank';
 		//print('nickname is blank');
 	}
+	//When no error, go to check.php
+	if(empty($error)){
+	$_SESSION['join'] = $_POST;
+	header('Location:check.php');
+	exit();
+	}
 }
-//When no error, go to check.php
-//if(empty($error)){
-//header('Location: check.php');
-//exit();
-//}
+
 ?>
 
 
@@ -51,25 +55,25 @@ if(!empty($_POST)){
 
 			<form action="" method="post" enctype="multipart/form-data">
 				<div class="form-outline mb-4">
-				<label class="form-label text-left" for="email">メールアドレス</label>
+				<label class="form-label text-muted" for="email">メールアドレス</label>
 					<input type="text" id = "email" name="email" class="form-control form-control-lg" value="<?php print(htmlspecialchars($_POST['email'],ENT_QUOTES));?>" />
 						<?php if($error['email'] === 'blank'):?>
-							<p class="error">*メールアドレスを入力してください</p>
+							<div class="error red">*メールアドレスを入力してください</div>
 						<?php endif; ?>
 				</div>
 
 				<div class="form-outline mb-4">
-				<label for="パスワード" class="form-label text-left">パスワード</label>    	
+				<label for="password" class="form-label text-muted">パスワード</label>    	
 					<input type="password" id="password" name="password" class="form-control form-control-lg" value="<?php print(htmlspecialchars($_POST['password'],ENT_QUOTES));?>" />
 						<?php if($error['password'] === 'length'):?>
 								<p class="error">*パスワードを４文字以上で入力してください</p>
 						<?php endif; ?>
 						<?php if($error['password'] === 'blank'):?>
-								<p class="error">*パスワードを入力してください</p>
+								<p class="error red">*パスワードを入力してください</p>
 						<?php endif; ?>
 				</div>
 		<div class="mb-3">
-			<button type="submit" class="btn btn-outline-primary">入力内容を確認する</button>
+			<button type="submit" class="btn btn-info">入力内容を確認する</button>
 		</div>
 	</form>
 				</div>
