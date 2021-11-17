@@ -1,7 +1,8 @@
 
 @import url('https://fonts.googleapis.com/css?family=Open+Sans|Slabo+27px');
 
-body,
+
+
 pre {
   font-family: 'Helvetica Neue', '游ゴシック Medium', '游ゴシック体', Helvetica, sans-serif;
   margin-bottom: 0;
@@ -65,5 +66,9 @@ time {
 .mt-font{
   margin-top: 1.5rem;
   
+}
+.error {
+  color:rgb(255, 0, 64);
+  font-size: 90%;
 }
 
