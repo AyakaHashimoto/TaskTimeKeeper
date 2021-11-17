@@ -24,7 +24,7 @@ if(!empty($_POST)){
 	exit();
 	}
 }
-if($_REQUEST['action'] == 'rewrite'){
+if($_REQUEST['action'] == 'rewrite' && isset($_SESSION['join'])){
 	$_POST = $_SESSION['join'];
 }
 ?>
@@ -55,7 +55,7 @@ if($_REQUEST['action'] == 'rewrite'){
 		  <h3 class="text-info mb-4">会員登録</h3>
 			<p class="lead text-muted"></p>
 
-			<form action="" method="post" enctype="multipart/form-data">
+			<form action="" method="post">
 				<div class="form-outline mb-4">
 				<label class="form-label text-muted" for="email">メールアドレス</label>
 					<input type="text" id = "email" name="email" class="form-control form-control-lg" value="<?php print(htmlspecialchars($_POST['email'],ENT_QUOTES));?>" />
