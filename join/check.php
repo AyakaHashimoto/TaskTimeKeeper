@@ -1,8 +1,20 @@
 <?php
 session_start();
+require('../dbconnect.php');
 
 if(!isset($_SESSION['join'])){
 	header('Location: index.php');
+	exit();
+}
+if(!empty($_POST)){
+	print('connected to DB');
+	$statement =$db->prepare('INSERT INTO member SET email=?, password=?, created_at=NOW()');
+	$statement->execute(array(
+		$_SESSION['join']['email'],
+		sha1($_SESSION['join']['password'])
+	));
+	unset($_SESSION['join']);
+	header('Location: thanks.php');
 	exit();
 }
 ?>
@@ -29,9 +41,10 @@ if(!isset($_SESSION['join'])){
         <div class="card shadow-2-strong" style="border-radius: 1rem;">
           <div class="card-body text-center p-5">
 		  <h3 class="text-info mb-4">会員登録</h3>
-			<p class="lead text-muted"></p>
+			<p class="lead text-muted">記入した内容を確認して、「登録する」ボタンをクリックしてください</p>
 
-			<form action="" method="post" enctype="multipart/form-data">
+			<form action="" method="post">
+				<input type="hidden" name="action" value="submit" />
 				<div class="form-outline mb-4">
 				<label class="form-label text-muted">メールアドレス</label>
 					<p>
