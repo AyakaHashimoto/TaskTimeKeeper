@@ -1,3 +1,36 @@
+<?php
+require('../dbconnect.php');
+if(!empty($_POST)){
+	if($_POST['email']===''){
+		$error['email']='blank';
+		//print('nickname is blank');
+	}
+	if(strlen($_POST['password']) < 4){
+		$error['password']='length';
+	}
+	if($_POST['password']===''){
+		$error['password']='blank';
+		//print('nickname is blank');
+	}
+    if(empty($error)){
+		$login = $db->prepare('SELECT * FROM member WHERE email=? AND password=?');
+		$login->execute(array(
+            $_POST['email'], 
+            sha1($_POST['password'])
+        ));
+		$member = $login->fetch();
+        if($member){
+            $_SESSION['id'] =$member['id'];
+            $_SESSION['time']= time();
+            header('Location: index.php');
+            exit();
+        }else{
+            $error['login'] = 'failed';
+        }
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
