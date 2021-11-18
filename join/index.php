@@ -3,10 +3,6 @@ session_start();
 require('../dbconnect.php');
 
 if(!empty($_POST)){
-	if($_POST['name']===''){
-		$error['name']='blank';
-		//print('nickname is blank');
-	}
 	if($_POST['email']===''){
 		$error['email']='blank';
 		//print('nickname is blank');
