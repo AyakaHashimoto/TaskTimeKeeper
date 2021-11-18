@@ -13,8 +13,46 @@
 </head>
 <body>
     <header>
-        <h1 class="fw-normal">menu</h1> 
-        <div class="container w-80">内容</div>
+        <h1 class="fw-normal">TaskTimeKeeper</h1> 
+        <div class="container w-80">
+        <p class="lead text-muted">タスクの開始から完了までの時間を記録し、一覧と集計ができるアプリです。仕事の工数管理や勉強時間の記録に。</p>
+        </div>
+
+        <div class="container py-5">
+  
+		  <h1 class="text-left mb-4">ログイン</h1>
+			<p class="lead text-muted"></p>
+
+			<form action="" method="post">
+				<div class="form-outline mb-4">
+				<label class="form-label text-muted" for="email">メールアドレス</label>
+					<input type="text" id = "email" name="email" class="form-control form-control-lg" value="<?php print(htmlspecialchars($_POST['email'],ENT_QUOTES));?>" />
+						<?php if($error['email'] === 'blank'):?>
+							<div class="error red">*メールアドレスを入力してください</div>
+						<?php endif; ?>
+				</div>
+
+				<div class="form-outline mb-4">
+				<label for="password" class="form-label text-muted">パスワード</label>    	
+					<input type="password" id="password" name="password" class="form-control form-control-lg" value="<?php print(htmlspecialchars($_POST['password'],ENT_QUOTES));?>" />
+						<?php if($error['password'] === 'length'):?>
+								<p class="error">*パスワードを４文字以上で入力してください</p>
+						<?php endif; ?>
+						<?php if($error['password'] === 'blank'):?>
+								<p class="error red">*パスワードを入力してください</p>
+						<?php endif; ?>
+				</div>
+		<div class="mb-3">
+			<button type="submit" class="btn btn-outline-primary">ログイン</button>
+             | <a href="/join/index.php?action=register"> 新規登録</a> |
+		</div>
+	</form>
+
+</div>
+
+
+
+
     </header>
   
     <main>
