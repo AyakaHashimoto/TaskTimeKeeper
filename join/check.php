@@ -7,7 +7,6 @@ if(!isset($_SESSION['join'])){
 	exit();
 }
 if(!empty($_POST)){
-	print('connected to DB');
 	$statement =$db->prepare('INSERT INTO member SET email=?, password=?, created_at=NOW()');
 	$statement->execute(array(
 		$_SESSION['join']['email'],
