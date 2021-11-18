@@ -1,5 +1,8 @@
 <?php
-require('../dbconnect.php');
+//ini_set( 'display_errors', 1 );
+//ini_set( 'error_reporting', E_ALL );
+
+require('dbconnect.php');
 if(!empty($_POST)){
 	if($_POST['email']===''){
 		$error['email']='blank';
@@ -72,9 +75,12 @@ if(!empty($_POST)){
 								<p class="error">*パスワードを４文字以上で入力してください</p>
 						<?php endif; ?>
 						<?php if($error['password'] === 'blank'):?>
-								<p class="error red">*パスワードを入力してください</p>
+								<p class="error">*パスワードを入力してください</p>
 						<?php endif; ?>
 				</div>
+                <?php if($error['login'] === 'failed'):?>
+								<p class="error">*ログインに失敗しました</p>
+				<?php endif; ?>
 		<div class="mb-3">
 			<button type="submit" class="btn btn-outline-primary">ログイン</button>
              | <a href="/join/index.php?action=register"> 新規登録</a> |
@@ -111,9 +117,6 @@ if(!empty($_POST)){
         </form>
         <br>
         <?php
-        require('dbconnect.php');
-        
-
         $tasks =$db->prepare('SELECT * FROM task ORDER BY id DESC');
         $tasks->execute(array());
         ?>
