@@ -1,5 +1,6 @@
 <?php
 session_start();
+require('../dbconnect.php');
 
 if(!empty($_POST)){
 	if($_POST['name']===''){
@@ -17,6 +18,16 @@ if(!empty($_POST)){
 		$error['password']='blank';
 		//print('nickname is blank');
 	}
+	//Account duplication check
+	if(empty($error)){
+		$membr = $db->prepare('SELECT COUNT(*) AS cnt FROM member WHERE email=?');
+		$membr->execute(array($_POST['email']));
+		$record = $membr->fetch();
+		if($record['cnt'] > 0){
+			$error['email'] = 'duplicate';
+		}
+	}
+
 	//When no error, go to check.php
 	if(empty($error)){
 	$_SESSION['join'] = $_POST;
@@ -25,6 +36,9 @@ if(!empty($_POST)){
 	}
 }
 if($_REQUEST['action'] == 'rewrite' && isset($_SESSION['join'])){
+	$_POST = $_SESSION['join'];
+}
+if($_REQUEST['action'] == 'register' && isset($_SESSION['join'])){
 	$_POST = $_SESSION['join'];
 }
 ?>
@@ -61,6 +75,9 @@ if($_REQUEST['action'] == 'rewrite' && isset($_SESSION['join'])){
 					<input type="text" id = "email" name="email" class="form-control form-control-lg" value="<?php print(htmlspecialchars($_POST['email'],ENT_QUOTES));?>" />
 						<?php if($error['email'] === 'blank'):?>
 							<div class="error red">*メールアドレスを入力してください</div>
+						<?php endif; ?>
+						<?php if($error['email'] === 'duplicate'):?>
+							<div class="error red">*メールアドレスが登録済みです</div>
 						<?php endif; ?>
 				</div>
 
