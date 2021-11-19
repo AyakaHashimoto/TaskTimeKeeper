@@ -1,13 +1,14 @@
 <?php
 //ini_set( 'display_errors', 1 );
 //ini_set( 'error_reporting', E_ALL );
-
+session_start();
 require('dbconnect.php');
 
-if($_COOKIE['email'] !== ''){
-    $email = $_COOKIE['email'];
+if($_COOKIE['email'] !== '' && $_POST['email'] ===''){
+    $_POST['email'] = $_COOKIE['email'];//$_POST bc session<-post
 }
 if(!empty($_POST)){
+    $email = $_POST['email']; //if email imput, ignore cookie
 	if($_POST['email']===''){
 		$error['email']='blank';
 		//print('nickname is blank');
@@ -40,6 +41,10 @@ if(!empty($_POST)){
             $error['login'] = 'failed';
         }
     }
+    if(!$_SESSION && empty($error)){ //to use session data for login only content
+        $_SESSION['join'] = $_POST;
+        exit();
+        }
 }
 ?>
 
@@ -64,14 +69,13 @@ if(!empty($_POST)){
         </div>
 
         <div class="container py-5">
-  
 		  <h1 class="text-left mb-4">ログイン</h1>
 			<p class="lead text-muted"></p>
 
 			<form action="" method="post">
 				<div class="form-outline mb-4">
 				<label class="form-label text-muted" for="email">メールアドレス</label>
-					<input type="text" id = "email" name="email" class="form-control form-control-lg" value="<?php print(htmlspecialchars($email,ENT_QUOTES));?>" />
+					<input type="text" id = "email" name="email" class="form-control form-control-lg" value="<?php print(htmlspecialchars($_POST['email'],ENT_QUOTES));?>" />
 						<?php if($error['email'] === 'blank'):?>
 							<div class="error red">*メールアドレスを入力してください</div>
 						<?php endif; ?>
