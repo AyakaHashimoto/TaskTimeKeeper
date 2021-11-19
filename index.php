@@ -3,6 +3,10 @@
 //ini_set( 'error_reporting', E_ALL );
 
 require('dbconnect.php');
+
+if($_COOKIE['email'] !== ''){
+    $email = $_COOKIE['email'];
+}
 if(!empty($_POST)){
 	if($_POST['email']===''){
 		$error['email']='blank';
@@ -25,6 +29,11 @@ if(!empty($_POST)){
         if($member){
             $_SESSION['id'] =$member['id'];
             $_SESSION['time']= time();
+
+            if($_POST['loginCheck'] === 'on'){
+                setcookie('email', $_POST['email'], time()+60*60*24*14);
+            }
+
             header('Location: index.php');
             exit();
         }else{
@@ -62,7 +71,7 @@ if(!empty($_POST)){
 			<form action="" method="post">
 				<div class="form-outline mb-4">
 				<label class="form-label text-muted" for="email">メールアドレス</label>
-					<input type="text" id = "email" name="email" class="form-control form-control-lg" value="<?php print(htmlspecialchars($_POST['email'],ENT_QUOTES));?>" />
+					<input type="text" id = "email" name="email" class="form-control form-control-lg" value="<?php print(htmlspecialchars($email,ENT_QUOTES));?>" />
 						<?php if($error['email'] === 'blank'):?>
 							<div class="error red">*メールアドレスを入力してください</div>
 						<?php endif; ?>
@@ -81,9 +90,17 @@ if(!empty($_POST)){
                 <?php if($error['login'] === 'failed'):?>
 								<p class="error">*ログインに失敗しました</p>
 				<?php endif; ?>
+        <br>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="on" id="loginCheck" name="loginCheck">
+            <label class="form-check-label text-primary" for="loginCheck">
+            次回から自動的にログインする
+            </label>
+        </div>
+        <br>
 		<div class="mb-3">
 			<button type="submit" class="btn btn-outline-primary">ログイン</button>
-             | <a href="/join/index.php?action=register"> 新規登録</a> |
+             | <a href="/tasktimekeeper/join/index.php?action=register"> 新規登録</a> |
 		</div>
 	</form>
 
