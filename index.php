@@ -41,7 +41,7 @@ if(!empty($_POST)){
             $error['login'] = 'failed';
         }
     }
-    if(!$_SESSION && empty($error)){ //to use session data for login only content
+    if(!$_SESSION && empty($error)){ //to use session data for login only contents
         $_SESSION['join'] = $_POST;
         exit();
         }
@@ -117,6 +117,22 @@ if(!empty($_POST)){
   
     <main>
         <h2 class="text-center text-info my-4">TASK TIME KEEPER</h2>
+
+        <?php 
+        session_start();
+        if(!(isset($_SESSION['id']))&& !($_SESSION['time'] + 10800 > time())){
+        ?>
+        <p class="lead text-muted mb-4">左カラムのログインフォームからログイン、または新規ユーザ登録をして下さい。</p>
+        <p>テストユーザで試す場合は以下でログインしてください。</p>
+        <ul class="list-group">
+            <li class="list-group-item active" aria-current="true">テストユーザメールアドレス</li>
+            <li class="list-group-item">example@mail</li>
+            <li class="list-group-item active">テストユーザパスワード</li>
+            <li class="list-group-item">1234</li>
+        </ul>
+        
+        <?php }else{ ?>
+
         <p class="lead text-muted">タスク名と詳細を登録しましょう。登録情報を修正するには、タスク名をクリックしてください。</p>
         
 
@@ -165,7 +181,7 @@ if(!empty($_POST)){
             <hr>
             <?php endwhile ?>  
         </article>
-        
+        <?php } ?>
 
     </main>
 </body>
