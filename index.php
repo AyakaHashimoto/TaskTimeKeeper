@@ -68,6 +68,10 @@ if(!empty($_POST)){
         <p class="lead text-muted">タスクの開始から完了までの時間を記録し、一覧と集計ができるアプリです。仕事の工数管理や勉強時間の記録に。</p>
         </div>
 
+        <?php 
+        session_start();
+        if(!(isset($_SESSION['id']))&& !($_SESSION['time'] + 10800 > time())){
+        ?>
         <div class="container py-5">
 		  <h1 class="text-left mb-4">ログイン</h1>
 			<p class="lead text-muted"></p>
@@ -94,26 +98,23 @@ if(!empty($_POST)){
                 <?php if($error['login'] === 'failed'):?>
 								<p class="error">*ログインに失敗しました</p>
 				<?php endif; ?>
-        <br>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="on" id="loginCheck" name="loginCheck">
-            <label class="form-check-label text-primary" for="loginCheck">
-            次回から自動的にログインする
-            </label>
+                <br>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="on" id="loginCheck" name="loginCheck">
+                    <label class="form-check-label text-primary" for="loginCheck">
+                    次回から自動的にログインする
+                    </label>
+                </div>
+                <br>
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-outline-primary">ログイン</button>
+                    | <a href="/tasktimekeeper/join/index.php?action=register"> 新規登録</a> |
+                </div>
+	        </form>
+            <?php } ?>
+        
         </div>
-        <br>
-		<div class="mb-3">
-			<button type="submit" class="btn btn-outline-primary">ログイン</button>
-             | <a href="/tasktimekeeper/join/index.php?action=register"> 新規登録</a> |
-		</div>
-	</form>
-
-</div>
-
-
-
-
-    </header>
+   </header>
   
     <main>
         <h2 class="text-center text-info my-4">TASK TIME KEEPER</h2>
