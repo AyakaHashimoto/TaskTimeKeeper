@@ -1,3 +1,21 @@
+<?php 
+    session_start();
+    require('dbconnect.php');
+
+    if(isset($_SESSION['id'])&& $_SESSION['time'] + 10800 > time()){
+        $_SESSION['time']= time();
+
+        $members = $db->prepare('SELECT * FROM member WHERE id=?');
+        $members->execute(array($_SESSION['id']));
+        $member =$members->fetch();
+
+    }else{
+        header('Location: index.php');
+        exit();
+    }
+?>
+
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -22,9 +40,11 @@
         <p class="lead text-muted">Stopボタンを押すとタスクが完了し、かかった時間が登録されます。</p>
         <?php
         require('dbconnect.php');
-        $statement =$db->prepare('INSERT INTO task SET task_name=?, target_time=?, created_at=NOW()');
+        $statement =$db->prepare('INSERT INTO task SET task_name=?, target_time=?, member_id=?,
+        created_at=NOW()');
         $statement->bindParam(1,$_POST['task'],PDO::PARAM_STR);
         $statement->bindParam(2,$_POST['target_time'],PDO::PARAM_STR);
+        $statement->bindParam(3,$member['id'],PDO::PARAM_STR); //add member_id
         $statement->execute();
 
         //var_dump($db->lastInsertId());
