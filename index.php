@@ -68,10 +68,7 @@ if(!empty($_POST)){
         <p class="lead text-muted">タスクの開始から完了までの時間を記録し、一覧と集計ができるアプリです。仕事の工数管理や勉強時間の記録に。</p>
         </div>
 
-        <?php 
-        session_start();
-        if(!(isset($_SESSION['id']))&& !($_SESSION['time'] + 10800 > time())){
-        ?>
+    
         <div class="container py-5">
 		  <h1 class="text-left mb-4">ログイン</h1>
 			<p class="lead text-muted"></p>
@@ -111,7 +108,6 @@ if(!empty($_POST)){
                     | <a href="/tasktimekeeper/join/index.php?action=register"> 新規登録</a> |
                 </div>
 	        </form>
-            <?php } ?>
         
         </div>
    </header>
@@ -121,7 +117,7 @@ if(!empty($_POST)){
 
         <?php 
         session_start();
-        if(!(isset($_SESSION['id']))&& !($_SESSION['time'] + 10800 > time())){
+        if(!(isset($_SESSION['id']))|| !($_SESSION['time'] + 10800 > time())){
         ?>
         <p class="lead text-muted mb-4">左カラムのログインフォームからログイン、または新規ユーザ登録をして下さい。</p>
         <p>テストユーザで試す場合は以下でログインしてください。</p>
@@ -132,57 +128,11 @@ if(!empty($_POST)){
             <li class="list-group-item">1234</li>
         </ul>
         
-        <?php }else{ ?>
-
-        <p class="lead text-muted">タスク名と詳細を登録しましょう。登録情報を修正するには、タスク名をクリックしてください。</p>
+        <?php }else{ 
+            header('Location: input.php');
+            exit();
         
-
-        
-        <form id="form" action="input_do.php" method="post">
-            <div class="row">
-                <div class="col">
-                <input type="text" id ="task" name="task" class="form-control" placeholder="タスク名を入力">
-                </div>
-
-                <div class="col">
-                <input type="text" id ="target_time" name="target_time" class="form-control" placeholder="目標完了時間（分）を入力">
-                </div>
-
-                <div class="col">
-                <button class="btn btn-outline-info" type="submit">start</button>
-                </div>
-            </div>
-        </form>
-        <br>
-        <?php
-        $tasks =$db->prepare('SELECT * FROM task ORDER BY id DESC');
-        $tasks->execute(array());
-        ?>
-        <article>
-            <?php while($task = $tasks->fetch()):
-                $time_finished = date('H:i:s',strtotime($task['finished_at']));
-            ?>   
-            <div class="row">
-                <div class="col">               
-                    <p><a href="update.php?id=<?php print($task['id']); ?>"><?php print(mb_substr($task['task_name'],0,50)) ?></a></p>
-                </div>
-                <div class="col">
-                    <time><?php print($task['created_at']); ?></time>
-                </div>  
-                <div class="col">
-                    <time><?php print(' - '.$time_finished); ?></time>
-                </div> 
-                <div class="col">
-                    <time><?php print('目標時間 '.$task['target_time']); ?></time>
-                </div>  
-                <div class="col">
-                    <time><?php print('かかった時間 '.$task['duration']); ?></time>
-                </div>  
-            </div>
-            <hr>
-            <?php endwhile ?>  
-        </article>
-        <?php } ?>
+         } ?>
 
     </main>
 </body>
