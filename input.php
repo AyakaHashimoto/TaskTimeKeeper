@@ -38,8 +38,8 @@
                 <!-- ログイン中に表示するもの -->
         <div class="container">
                 <div class="d-grid gap-2 mx-auto">
-                    <a class="btn btn-outline-light mt-4" href="#" role="button">タスク集計ページ</a>
-                    <button type="button" class="btn btn-outline-secondary">ログアウト</button>
+                    <a class="btn btn-outline-light mt-4" href="culc.php" role="button">タスク集計ページ</a>
+                    <a class="btn btn-outline-secondary" href="login/logout.php" role="button">ログアウト</a>
                 </div>
         </div>
  
