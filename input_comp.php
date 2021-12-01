@@ -71,7 +71,7 @@
  
         <br>
 
-        <p><a href="index.php" class="btn btn-outline-info">戻る</a></p>
+        <p><a href="input.php" class="btn btn-outline-info">戻る</a></p>
         
 
     </main>
