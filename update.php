@@ -76,7 +76,7 @@
         </form>
 
         <div class="col mt-4 ">
-        <a href="index.php" role="button" class="btn btn-outline-info">戻る</a>
+        <a href="input.php" role="button" class="btn btn-outline-info">戻る</a>
         </div>
         
 
