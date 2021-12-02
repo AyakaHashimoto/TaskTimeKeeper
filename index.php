@@ -35,7 +35,7 @@ if(!empty($_POST)){
                 setcookie('email', $_POST['email'], time()+60*60*24*14);
             }
 
-            header('Location: index.php');
+            header('Location: input.php');
             exit();
         }else{
             $error['login'] = 'failed';
@@ -73,7 +73,7 @@ if(!empty($_POST)){
 		  <h1 class="text-left mb-4">ログイン</h1>
 			<p class="lead text-muted"></p>
 
-			<form action="" method="post">
+			<form action="input.php" method="post">
 				<div class="form-outline mb-4">
 				<label class="form-label text-muted" for="email">メールアドレス</label>
 					<input type="text" id = "email" name="email" class="form-control form-control-lg" value="<?php print(htmlspecialchars($_POST['email'],ENT_QUOTES));?>" />
@@ -104,10 +104,10 @@ if(!empty($_POST)){
                 </div>
                 <br>
                 <div class="mb-3">
-                    <button type="submit" class="btn btn-outline-primary">ログイン</button>
+                    <button type="submit" action="input.php" class="btn btn-outline-primary">ログイン</button>
                     | <a href="/tasktimekeeper/join/index.php?action=register"> 新規登録</a> |
-                    <button class="btn btn-outline-primary my-2" href="login/twitterLogin.php">
-                    Twitterでログイン</button>
+                    <a class="btn btn-outline-primary my-2" href="/tasktimekeeper/login/twitterLogin.php">
+                    Twitterでログイン</a>
                 </div>
 	        </form>
         
@@ -117,10 +117,6 @@ if(!empty($_POST)){
     <main>
         <h2 class="text-center text-info my-4">TASK TIME KEEPER</h2>
 
-        <?php 
-        session_start();
-        if(!(isset($_SESSION['id']))|| !($_SESSION['time'] + 10800 > time())){
-        ?>
         <p class="lead text-muted mb-4">左カラムのログインフォームからログイン、または新規ユーザ登録をして下さい。</p>
         <p>テストユーザで試す場合は以下でログインしてください。</p>
         <ul class="list-group">
@@ -130,12 +126,6 @@ if(!empty($_POST)){
             <li class="list-group-item">1234</li>
         </ul>
         
-        <?php }else{ 
-            header('Location: input.php');
-            exit();
-        
-         } ?>
-
     </main>
 </body>
 </html>
