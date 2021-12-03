@@ -1,24 +1,22 @@
 <?php
-//ini_set( 'display_errors', 1 );
-//ini_set( 'error_reporting', E_ALL );
+// ini_set( 'display_errors', 1 );
+// ini_set( 'error_reporting', E_ALL );
 session_start();
 require('dbconnect.php');
 
-if($_COOKIE['email'] !== '' && $_POST['email'] ===''){
+if(!empty($_COOKIE['email']) && ($_POST['email'] ==='')){
     $_POST['email'] = $_COOKIE['email'];//$_POST bc session<-post
 }
 if(!empty($_POST)){
     $email = $_POST['email']; //if email imput, ignore cookie
 	if($_POST['email']===''){
 		$error['email']='blank';
-		//print('nickname is blank');
 	}
 	if(strlen($_POST['password']) < 4){
 		$error['password']='length';
 	}
 	if($_POST['password']===''){
 		$error['password']='blank';
-		//print('nickname is blank');
 	}
     if(empty($error)){
 		$login = $db->prepare('SELECT * FROM member WHERE email=? AND password=?');
@@ -43,6 +41,7 @@ if(!empty($_POST)){
     }
     if(!$_SESSION && empty($error)){ //to use session data for login only contents
         $_SESSION['join'] = $_POST;
+        header('Location: input.php');
         exit();
         }
 }
@@ -62,27 +61,25 @@ if(!empty($_POST)){
     <title>Task Time Keeper</title>
 </head>
 <body>
-    <header>
-        <h1 class="fw-normal">TaskTimeKeeper</h1> 
-        <div class="container w-80">
+    <header style="overflow:auto">
+        <h1 class="fw-normal">TaskTimeKeeperとは</h1> 
+        <div class="container mt-3 w-80">
         <p class="lead text-muted">タスクの開始から完了までの時間を記録し、一覧と集計ができるアプリです。仕事の工数管理や勉強時間の記録に。</p>
         </div>
 
     
         <div class="container py-5">
-		  <h1 class="text-left mb-4">ログイン</h1>
-			<p class="lead text-muted"></p>
-
-			<form action="input.php" method="post">
-				<div class="form-outline mb-4">
-				<label class="form-label text-muted" for="email">メールアドレス</label>
-					<input type="text" id = "email" name="email" class="form-control form-control-lg" value="<?php print(htmlspecialchars($_POST['email'],ENT_QUOTES));?>" />
+		  <h1 class="text-left mb-2">ログイン</h1>
+			<form action="" method="post" enctype="multipart/form-data">
+				<div class="form-outline">
+				<label for="email" class="form-label text-muted">メールアドレス</label>
+					<input type="text" id="email" name="email" class="form-control form-control-lg" value="<?php print(htmlspecialchars($_POST['email'],ENT_QUOTES));?>" />
 						<?php if($error['email'] === 'blank'):?>
-							<div class="error red">*メールアドレスを入力してください</div>
+							<p class="error">*メールアドレスを入力してください</p>
 						<?php endif; ?>
 				</div>
 
-				<div class="form-outline mb-4">
+				<div class="form-outline mb-2">
 				<label for="password" class="form-label text-muted">パスワード</label>    	
 					<input type="password" id="password" name="password" class="form-control form-control-lg" value="<?php print(htmlspecialchars($_POST['password'],ENT_QUOTES));?>" />
 						<?php if($error['password'] === 'length'):?>
@@ -104,7 +101,7 @@ if(!empty($_POST)){
                 </div>
                 <br>
                 <div class="mb-3">
-                    <button type="submit" action="input.php" class="btn btn-outline-primary">ログイン</button>
+                    <button type="submit" class="btn btn-outline-primary">ログイン</button>
                     | <a href="/tasktimekeeper/join/index.php?action=register"> 新規登録</a> |
                     <a class="btn btn-outline-primary my-2" href="/tasktimekeeper/login/twitterLogin.php">
                     Twitterでログイン</a>
