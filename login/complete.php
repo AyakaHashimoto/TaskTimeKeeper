@@ -29,19 +29,44 @@ error_reporting(E_ALL);
 		exit; 
 	   }
 ?>
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+
+    <!-- Bootstrap -->
+    <link href="../css/bootstrap.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+
+    <title>Task Time Keeper</title>
 </head>
 <body>
-    <h1>成功</h1>
-    <!-- callback.phpからセッションを受け継ぐ -->
+<main>
+        <h2 class="text-center text-info my-4">TASK TIME KEEPER</h2>
+        <p class="lead text-muted">ログインしました。</p>
+	   <br>
+		<div class="card my-4"style="width: 18rem;">
+		<div class="card-body">
+			<h5 class="card-title">ログイン情報</h5>
+			<h6 class="card-text"><?php print($_SESSION['screen_name'].' さん'); ?></h6>
+			<p><img src=<?php print($_SESSION['profile_image_url_https']);?> </p>
+			<p class="card-subtitle my-2 text-muted">別のアカウントでログインする場合は、認証画面のアイコンからログアウトし、該当アカウントにログインしてください。</p>
+			<a href="twitterLogin.php" class="card-link">別のアカウントでログインする</a>
+		</div>
+		</div>
+
+		<div class="container my-4">
+			<a class="btn btn-primary" href="../input.php" role="button">タスク入力へ</a>
+		</div>
+    </main>
+</body>
+
+
+    <!-- callback.phpからセッションを受け継ぐ
 	<?php
+	
 	echo "<p>ID：".$_SESSION['id_str']."</p>";
 	echo "<p>名前：". $_SESSION['name'] . "</p>";
 	echo "<p>スクリーン名：". $_SESSION['screen_name'] . "</p>";
@@ -50,6 +75,4 @@ error_reporting(E_ALL);
 	
 	echo "<p><a href='../input.php'>タスク入力へ</a></p>";
 	echo "<p><a href='logout.php'>ログアウト</a></p>";
-	?>
-</body>
-</html>
+	?> -->
