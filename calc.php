@@ -38,8 +38,8 @@
                 <!-- ログイン中に表示するもの -->
         <div class="container">
                 <div class="d-grid gap-2 mx-auto">
-                    <a class="btn btn-outline-light mt-4" href="index.php" role="button">戻る</a>
-                    <button type="button" class="btn btn-outline-secondary">ログアウト</button>
+                    <a class="btn btn-outline-light mt-4" href="input.php" role="button">戻る</a>
+                    <a role="button" href="login/logout.php" class="btn btn-outline-secondary">ログアウト</a>
                 </div>
         </div>
  
@@ -62,13 +62,6 @@
             $tsum = $task['tsum'];
             $dsum = $task['dsum'];
         ?>
-        <div class="container">
-        <ul class="list-group list-group-horizontal">
-            <li class="list-group-item">An item</li>
-            <li class="list-group-item">A second item</li>
-            <li class="list-group-item">A third item</li>
-        </ul>
-        </div>
         <article>
             <div class="row">
                 <div class="col">               
