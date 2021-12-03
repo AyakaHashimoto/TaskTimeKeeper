@@ -15,6 +15,7 @@ header {
   left: 0;
   width: 300px;
   height: 100vh;
+  overflow-y: scroll;
   background:linear-gradient(45deg, #b8edf5 0%,#17a2b8 83%);
 }
 header h1 {
