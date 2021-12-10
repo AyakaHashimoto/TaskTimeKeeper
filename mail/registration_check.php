@@ -1,6 +1,6 @@
 <?php
-ini_set( 'display_errors', 1 );
-ini_set( 'error_reporting', E_ALL );
+// ini_set( 'display_errors', 1 );
+// ini_set( 'error_reporting', E_ALL );
 
 session_start();
 header("Content-type: text/html; charset=utf-8");
@@ -24,8 +24,6 @@ if (!is_null($mail) && is_null($errors)){
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         $statement = $db->prepare("INSERT INTO pre_member (urltoken,mail,date) VALUES (:urltoken,:mail,now() )");
-    
-        //プレースホルダへ実際の値を設定する
         $statement->bindValue(':urltoken', $urltoken, PDO::PARAM_STR);
         $statement->bindValue(':mail', $mail, PDO::PARAM_STR);
         $statement->execute();
@@ -101,8 +99,8 @@ EOM;
              <?php if (!is_null($mail)&& is_null($errors)): ?>
                 <p><?=$message?></p>
  
-                <p>↓このURLが記載されたメールが届きます。</p>
-                <a href="<?=$url?>"><?=$url?></a>
+                <!-- <p>↓このURLが記載されたメールが届きます。</p>
+                <a href="<?=$url?>"><?=$url?></a> -->
                 
                 <?php elseif(!is_null($errors)): ?>
                     <p><?php print($errors); ?></p>
