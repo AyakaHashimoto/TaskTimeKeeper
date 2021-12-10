@@ -137,6 +137,7 @@ if(!empty($_POST)){
 						<?php endif; ?>
 				</div>
 				<input type="hidden" name="token" value="<?=$token?>">
+				<input type="hidden" name="urltoken" value="<?=$urltoken?>">
 				<div class="mb-3">
 					<button type="submit" class="btn btn-info">入力内容を確認する</button>
 				</div>
