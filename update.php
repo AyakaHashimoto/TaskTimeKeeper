@@ -54,7 +54,7 @@
 
                 <div class="col">
                 <label for="finished_at" class="form-label">終了日時</label>
-                <input type="text" id ="finished_at" name="finished_at" class="form-control" value="<?php print($task['tfinished_at']); ?>">
+                <input type="text" id ="finished_at" name="finished_at" class="form-control" value="<?php print($task['finished_at']); ?>">
                 </div>
             </div>
 
