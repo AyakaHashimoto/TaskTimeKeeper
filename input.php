@@ -87,10 +87,10 @@
                     <time><?php print(' - '.$time_finished); ?></time>
                 </div> 
                 <div class="col">
-                    <time><?php print('目標時間 '.$task['target_time']); ?></time>
+                    <time><?php print('目標時間 '.$task['target_time'].' 分'); ?></time>
                 </div>  
                 <div class="col">
-                    <time><?php print('かかった時間 '.$task['duration']); ?></time>
+                    <time><?php print('かかった時間 '.$task['duration'].' 分'); ?></time>
                 </div>  
             </div>
             <hr>
