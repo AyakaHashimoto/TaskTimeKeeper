@@ -1,20 +1,63 @@
 <?php
 session_start();
-require('../dbconnect.php');
+header("Content-type: text/html; charset=utf-8");
+ 
+//クロスサイトリクエストフォージェリ（CSRF）対策のトークン判定
+if ($_SESSION['token'] != ($_SESSION['join']['token'])){
+	echo "不正アクセスの可能性あり";
+	exit();
+}
+ 
+//クリックジャッキング対策
+header('X-FRAME-OPTIONS: SAMEORIGIN');
 
 if(!isset($_SESSION['join'])){
 	header('Location: index.php');
 	exit();
 }
-if(!empty($_POST)){
-	$statement =$db->prepare('INSERT INTO member SET email=?, password=?, created_at=NOW()');
-	$statement->execute(array(
-		$_SESSION['join']['email'],
-		sha1($_SESSION['join']['password'])
-	));
-	unset($_SESSION['join']);
-	header('Location: thanks.php');
-	exit();
+
+require('../dbconnect.php');
+try{
+	//例外処理
+	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	//トランザクション開始
+	$db->beginTransaction();
+
+	if(!empty($_POST)){
+		$statement =$db->prepare('INSERT INTO member SET email=?, password=?, created_at=NOW()');
+		$statement->execute(array(
+			$_SESSION['join']['email'],
+			sha1($_SESSION['join']['password'])
+		));
+
+		//pre_memberのflagを1にする
+		$statement = $db->prepare("UPDATE pre_member SET flag=1 WHERE mail=(:mail)");
+		$statement->bindValue(':mail', $_SESSION['join']['email'], PDO::PARAM_STR);
+		$statement->execute();
+
+		// トランザクション完了
+		$db->commit();
+			
+		//データベース接続切断
+		$db = null;		
+		
+		//セッションを破棄する
+		session_destroy();
+		unset($_SESSION['join']);
+
+		//セッションクッキーの削除・sessionidとの関係を探れ。つまりはじめのsesssionidを名前でやる
+		if (isset($_COOKIE["PHPSESSID"])) {
+				setcookie("PHPSESSID", '', time() - 1800, '/');
+		}
+		
+		header('Location: thanks.php');
+		exit();
+	}
+}catch (PDOException $e){
+	//トランザクション取り消し（ロールバック）
+	$db->rollBack();
+	$errors['error'] = "もう一度やりなおして下さい。";
+	print('Error:'.$e->getMessage());
 }
 ?>
 
@@ -57,7 +100,7 @@ if(!empty($_POST)){
 				<p>【表示されません】</p>
 				</div>
 		<div class="mb-3">
-		 	<a href="index.php?action=rewrite">&laquo;&nbsp;書き直す</a> |
+		 	<a href="index.php?urltoken=<?php print($_POST['urltoken']);?>">&laquo;&nbsp;書き直す</a> |
 			<button type="submit" class="btn btn-info">登録する</button>
 		</div>
 	</form>
