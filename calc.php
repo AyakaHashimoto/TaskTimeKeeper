@@ -53,7 +53,32 @@
         <p class="lead text-muted mb-4">タスク名ごとに目標時間と実際にかかった時間を表示します。</p>
 
         <?php
+        $months =$db->prepare('SELECT DATE_FORMAT(finished_at, "%Y-%m") AS month FROM task 
+        WHERE member_id=? GROUP BY DATE_FORMAT(finished_at, "%Y-%m")');
+        $months->execute(array($member['id']));
+        ?>
+   
+        <div class="container">
+            
+            <form class="row" action="calc_by.php" method="post">
+                <div class="col-auto">
+                <select class="form-select form-select-sm" name="month" aria-label=".form-select-sm month">
+                    <option selected>集計する月を選ぶ</option>
+                    <?php 
+                     while($month = $months->fetch()){
+                        $option = $month['month'];
+                        echo '<option value="'.$option.'">'.$option.'</option>';
+                    }
+                    ?>
+                </select>
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary mb-3">集計</button>
+                </div>
+            </form>
+        </div>
 
+        <?php
         $tasks =$db->prepare('SELECT task_name, SUM(target_time) AS tsum, SUM(duration) AS dsum FROM task WHERE member_id=? GROUP BY task_name');
         $tasks->execute(array($member['id']));
 
@@ -62,6 +87,7 @@
             $tsum = $task['tsum'];
             $dsum = $task['dsum'];
         ?>
+
         <article>
             <div class="row">
                 <div class="col">               
