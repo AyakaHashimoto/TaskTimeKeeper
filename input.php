@@ -78,7 +78,7 @@
             ?>   
             <div class="row">
                 <div class="col">               
-                    <p><a href="update.php?id=<?php print($task['id']); ?>"><?php print(mb_substr($task['task_name'],0,50)) ?></a></p>
+                    <p><a href="update.php?id=<?php print($task['id']); ?>"><?php print($task['task_name']) ?></a></p>
                 </div>
                 <div class="col">
                     <time><?php print($task['created_at']); ?></time>
