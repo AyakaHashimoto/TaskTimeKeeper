@@ -16,7 +16,7 @@
 <body>
     <header>
         <h1 class="fw-normal">menu</h1> 
-        <div class="container w-80">内容</div>
+        <div class="container w-80"></div>
     </header>
   
     <main>
