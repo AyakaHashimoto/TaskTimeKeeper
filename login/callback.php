@@ -7,7 +7,7 @@ require '../vendor/autoload.php';
 
 use Abraham\TwitterOAuth\TwitterOAuth;
 require 'myTokens.php';
-define('CALLBACK_URL', 'http://localhost:8888/tasktimekeeper/login/callback.php');//Twitterから認証した時に飛ぶページ場所
+define('CALLBACK_URL', 'https://tasktimekeeper.herokuapp.com/login/callback.php');//Twitterから認証した時に飛ぶページ場所
 
 $request_token = [];
 $request_token['oauth_token'] = $_SESSION['oauth_token'];
