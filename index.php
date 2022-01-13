@@ -102,7 +102,7 @@ if(!empty($_POST)){
                 <br>
                 <div class="mb-3">
                     <button type="submit" class="btn btn-outline-primary">ログイン</button>
-                    | <a href="/tasktimekeeper/mail/registration.php"> 新規登録</a> |
+                    | <a href="/mail/registration.php"> 新規登録</a> |
                     <a class="btn btn-outline-primary my-2" href="/login/twitterLogin.php">
                     Twitterでログイン</a>
                 </div>
