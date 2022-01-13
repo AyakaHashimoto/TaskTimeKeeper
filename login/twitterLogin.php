@@ -6,7 +6,7 @@ session_start();
 require '../vendor/autoload.php';
 
 use Abraham\TwitterOAuth\TwitterOAuth;
-require 'myTokens.php';
+//require 'myTokens.php';
 define('CALLBACK_URL', 'https://tasktimekeeper.herokuapp.com/login/callback.php');//Twitterから認証した時に飛ぶページ場所
 
 //login.php
