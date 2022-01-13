@@ -113,7 +113,7 @@
                 
                     <div class="row">
                         <div class="col">               
-                            <p><a href="#"><?php print(mb_substr($name,0,50,"UTF-8")) ?></a></p>
+                            <p><a href="#"><?php print($name) ?></a></p>
                         </div>
                         <div class="col">
                             <time><?php print('件数： '.$cnt); ?></time>
