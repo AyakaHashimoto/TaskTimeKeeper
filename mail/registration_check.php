@@ -7,7 +7,7 @@ header("Content-type: text/html; charset=utf-8");
  
 //クリックジャッキング対策
 header('X-FRAME-OPTIONS: SAMEORIGIN');
-
+$errors ='';
 if(!empty($_SESSION['email'])){
     //データを変数に入れる
 	$mail = isset($_SESSION['email']) ? $_SESSION['email'] : NULL;
