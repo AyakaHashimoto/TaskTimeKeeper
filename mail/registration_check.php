@@ -15,7 +15,7 @@ if(!empty($_SESSION['email'])){
 if (!is_null($mail) && is_null($errors)){
 	
 	$urltoken = hash('sha256',uniqid(rand(),1));
-	$url = "http://localhost:8888/tasktimekeeper/join/index.php"."?urltoken=".$urltoken;
+	$url = "https://tasktimekeeper.herokuapp.com/join/index.php"."?urltoken=".$urltoken;
 
 
     require('../dbconnect.php');
