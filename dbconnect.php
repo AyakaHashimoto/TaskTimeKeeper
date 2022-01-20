@@ -1,9 +1,15 @@
 
 <?php
+// 自動で読み込み
+require ('/vendor/autoload.php');
+
+// .envを使用する
+Dotenv\Dotenv::createImmutable(__DIR__)->load();
+
 date_default_timezone_set('Asia/Tokyo');
 $driver_options = [PDO::MYSQL_ATTR_INIT_COMMAND => "SET time_zone='+09:00'"];
 try{
-    $db= new PDO('mysql:dbname=heroku_008028cbdf9b9d4;host=us-cdbr-east-05.cleardb.net;charset=utf8','bbefb6958d3ab1','185a1d9d',$driver_options);
+    $db= new PDO($_ENV['DB_CONNECT'],$driver_options);
     //echo 'success';
 }catch(PDOException $e){
     echo 'DB connection error: '.$e->getMessage();
