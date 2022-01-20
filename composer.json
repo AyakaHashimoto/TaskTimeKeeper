@@ -2,6 +2,7 @@
     "require": {
         "php": "~7.0",
         "abraham/twitteroauth": "^1.0",
-        "ext-mbstring": "*"
+        "ext-mbstring": "*",
+        "sendgrid/sendgrid": "~7"
     }
 }
