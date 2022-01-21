@@ -5,21 +5,28 @@ ini_set( 'error_reporting', E_ALL );
 session_start();
 header("Content-type: text/html; charset=utf-8");
  
+print("print something!");
+
 //クリックジャッキング対策
 header('X-FRAME-OPTIONS: SAMEORIGIN');
 $errors ='';
 if(!empty($_SESSION['email'])){
     //データを変数に入れる
 	$mail = isset($_SESSION['email']) ? $_SESSION['email'] : NULL;
+
+    print("!empty($_SESSION[email]) = true!");
 }
 if (!is_null($mail) && is_null($errors)){
+
 	print("!is_null($mail) && is_null($errors) = true /n");
+
 	$urltoken = hash('sha256',uniqid(rand(),1));
 	$url = "https://tasktimekeeper.herokuapp.com/join/index.php"."?urltoken=".$urltoken;
 
     require ('../vendor/autoload.php');
     require('../dbconnect.php');
-	try{print("try to insert into DB");
+	try{
+        print("try to insert into DB");
         //例外処理
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
