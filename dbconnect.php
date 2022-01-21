@@ -1,7 +1,7 @@
 
 <?php
 // 自動で読み込み
-require ('/vendor/autoload.php');
+require ('vendor/autoload.php');
 
 // .envを使用する
 Dotenv\Dotenv::createImmutable(__DIR__)->load();
