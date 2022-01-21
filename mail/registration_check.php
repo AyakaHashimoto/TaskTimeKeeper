@@ -97,7 +97,7 @@ if (!is_null($mail) && is_null($errors)){
         <div class="card">
             <div class="card-body">
              <?php if (!is_null($mail)&& is_null($errors)): ?>
-                <p><?=$message?></p>
+                <p><?=print($message);?></p>
  
                 <!-- <p>↓このURLが記載されたメールが届きます。</p>
                 <a href="<?=$url?>"><?=$url?></a> -->
