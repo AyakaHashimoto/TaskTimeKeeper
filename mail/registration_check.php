@@ -17,7 +17,7 @@ if (!is_null($mail) && is_null($errors)){
 	$urltoken = hash('sha256',uniqid(rand(),1));
 	$url = "https://tasktimekeeper.herokuapp.com/join/index.php"."?urltoken=".$urltoken;
 
-
+    require ('../vendor/autoload.php');
     require('../dbconnect.php');
 	try{
         //例外処理
@@ -34,28 +34,28 @@ if (!is_null($mail) && is_null($errors)){
         print('Error:'.$e->getMessage());
         die();
     }
-    //メールの宛先
-	$mailTo = $mail;
+    /////////SendGridコード///////////////////
+    $body ="24時間以内に下記のURLからご登録下さい。\n". $url;
+    // Declare a new SendGrid Mail object
+    $email = new \SendGrid\Mail\Mail();
+    // Set the email parameters
+    $email->setFrom("annassfdc@gmail.com", “mail_registration”);
+    $email->setSubject("【TASK TIME KEEPER】会員登録用URLのお知らせ");
+    $email->addTo("annassfdc@gmail.com", “mail_registration”);
+    $email->addContent("text/plain", $body);
+    $sendgrid = new \SendGrid(getenv('SENDGRID_API_KEY'));
+    try {
+        $response = $sendgrid->send($email);
+        print $response->statusCode() . "\n";
+        print_r($response->headers());
+        print $response->body() . "\n";
+        $sent  = true;
+    } catch (Exception $e) {
+        echo 'Caught exception: '. $e->getMessage() ."n\n";
+    }
+    /////////SendGridコード///////////////////
  
-	//Return-Pathに指定するメールアドレス
-	$returnMail = 'annassfdc@gmail.com';
- 
-	$name = "TASK TIME KEEPER メール登録";
-	$mail = 'annassfdc@gmail.com';
-	$subject = "【TASK TIME KEEPER】会員登録用URLのお知らせ";
- 
-$body = <<< EOM
-24時間以内に下記のURLからご登録下さい。
-{$url}
-EOM;
- 
-	mb_language('ja');
-	mb_internal_encoding('UTF-8');
- 
-	//Fromヘッダーを作成
-	$header = 'From: ' . mb_encode_mimeheader($name). ' <' . $mail. '>';
- 
-	if (mb_send_mail($mailTo, $subject, $body, $header, '-f'. $returnMail)) {
+	if ($sent) {
 	
 	 	//セッション変数を全て解除
 		$_SESSION = array();
@@ -74,7 +74,7 @@ EOM;
 		$errors = "メールの送信に失敗しました。";
 	}	
 
-}   
+} 
 ?>
 
 <!DOCTYPE html>
