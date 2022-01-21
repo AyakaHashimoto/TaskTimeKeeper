@@ -13,13 +13,13 @@ if(!empty($_SESSION['email'])){
 	$mail = isset($_SESSION['email']) ? $_SESSION['email'] : NULL;
 }
 if (!is_null($mail) && is_null($errors)){
-	
+	print("!is_null($mail) && is_null($errors) = true /n");
 	$urltoken = hash('sha256',uniqid(rand(),1));
 	$url = "https://tasktimekeeper.herokuapp.com/join/index.php"."?urltoken=".$urltoken;
 
     require ('../vendor/autoload.php');
     require('../dbconnect.php');
-	try{
+	try{print("try to insert into DB");
         //例外処理
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
