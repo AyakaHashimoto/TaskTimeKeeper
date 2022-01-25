@@ -1,6 +1,6 @@
 <?php
-ini_set( 'display_errors', 1 );
-ini_set( 'error_reporting', E_ALL );
+//ini_set( 'display_errors', 1 );
+//ini_set( 'error_reporting', E_ALL );
 
 session_start();
 header("Content-type: text/html; charset=utf-8");
@@ -12,11 +12,9 @@ if(!empty($_SESSION['email'])){
     //データを変数に入れる
 	$mail = isset($_SESSION['email']) ? $_SESSION['email'] : NULL;
 
-    print($mail);
+    //print($mail);
 }
 if (!is_null($mail) && is_null($errors)){
-
-	print("!is_null($mail) && is_null($errors) = true /n"); 
 
 	$urltoken = hash('sha256',uniqid(rand(),1));
 	$url = "https://tasktimekeeper.herokuapp.com/join/index.php"."?urltoken=".$urltoken;
@@ -24,7 +22,6 @@ if (!is_null($mail) && is_null($errors)){
     require ('../vendor/autoload.php');
     require('../dbconnect.php');
 	try{
-        print("try to insert into DB");
         //例外処理
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
@@ -46,7 +43,7 @@ if (!is_null($mail) && is_null($errors)){
     // Set the email parameters
     $email->setFrom("annassfdc@gmail.com", “mail_registration”);
     $email->setSubject("【TASK TIME KEEPER】会員登録用URLのお知らせ");
-    $email->addTo("annassfdc@gmail.com", “mail_registration”);
+    $email->addTo($mail , “”);
     $email->addContent("text/plain", $body);
     $sendgrid = new \SendGrid(getenv('SENDGRID_API_KEY'));
     try {
