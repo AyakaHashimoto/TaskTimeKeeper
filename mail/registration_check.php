@@ -4,8 +4,6 @@ ini_set( 'error_reporting', E_ALL );
 
 session_start();
 header("Content-type: text/html; charset=utf-8");
- 
-print("print something! /n"); //GOOD
 
 //クリックジャッキング対策
 header('X-FRAME-OPTIONS: SAMEORIGIN');
@@ -14,12 +12,11 @@ if(!empty($_SESSION['email'])){
     //データを変数に入れる
 	$mail = isset($_SESSION['email']) ? $_SESSION['email'] : NULL;
 
-    //print("!empty($_SESSION[email]) = true! /n");　//GOOD
     print($mail);
 }
 if (!is_null($mail) && is_null($errors)){
 
-	print("!is_null($mail) && is_null($errors) = true /n"); //NOT printed
+	print("!is_null($mail) && is_null($errors) = true /n"); 
 
 	$urltoken = hash('sha256',uniqid(rand(),1));
 	$url = "https://tasktimekeeper.herokuapp.com/join/index.php"."?urltoken=".$urltoken;
@@ -59,7 +56,7 @@ if (!is_null($mail) && is_null($errors)){
         print $response->body() . "\n";
         $sent  = true;
     } catch (Exception $e) {
-        echo 'Caught exception: '. $e->getMessage() ."n\n";
+        echo 'Caught exception: '. $e->getMessage() ."\n";
     }
     /////////SendGridコード///////////////////
  
@@ -76,7 +73,7 @@ if (!is_null($mail) && is_null($errors)){
  		//セッションを破棄する
  		session_destroy();
  	
- 		$message = "メールをお送りしました。24時間以内にメールに記載されたURLからご登録下さい。";
+ 		$message = "メールをお送りしました。24時間以内にメールに記載されたURLからご登録下さい。\n 迷惑メールボックスに振り分けられる場合がありますのでご確認ください。";
  	
 	} else {
 		$errors = "メールの送信に失敗しました。";
